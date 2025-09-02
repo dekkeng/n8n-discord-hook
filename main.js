@@ -1,7 +1,7 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 const axios = require('axios');
 const dotenv = require('dotenv');
-
+const http = require('http');
 // Load environment variables from a .env file
 dotenv.config();
 
@@ -60,3 +60,13 @@ client.on('messageCreate', async message => {
 
 // Log in to Discord with your bot's token
 client.login(TOKEN);
+
+
+
+// Simple keep-alive server
+http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('OK');
+}).listen(process.env.PORT || 8453, () => {
+    console.log('Keep-alive server running');
+});
